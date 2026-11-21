@@ -25,14 +25,10 @@ class SanPhamController {
         $minPrice = 0;
         $maxPrice = 999999999;
 
-        if ($priceRange === '0-2000000') {
-            $minPrice = 0; $maxPrice = 2000000;
-        } elseif ($priceRange === '2000000-5000000') {
-            $minPrice = 2000000; $maxPrice = 5000000;
-        } elseif ($priceRange === '5000000-10000000') {
-            $minPrice = 5000000; $maxPrice = 10000000;
-        } elseif ($priceRange === '10000000-max') {
-            $minPrice = 10000000; $maxPrice = 999999999;
+        if ($priceRange !== 'all' && strpos($priceRange, '-') !== false) {
+            $parts = explode('-', $priceRange);
+            $minPrice = (int)$parts[0];
+            $maxPrice = ($parts[1] === 'max') ? 999999999 : (int)$parts[1];
         }
 
         // Xử lý phân trang
