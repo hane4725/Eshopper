@@ -1,63 +1,101 @@
-<?php require_once __DIR__ . '/../includes/header.php'; ?>
-<?php require_once __DIR__ . '/../includes/navbar.php'; ?>
-
-<!-- Page Header Start -->
-<div class="container-fluid bg-secondary mb-5">
-    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 180px">
-        <h1 class="font-weight-semi-bold text-uppercase mb-3">Đăng Nhập Tài Khoản</h1>
-        <div class="d-inline-flex">
-            <p class="m-0"><a href="<?= BASE_URL ?>/index.php">Trang Chủ</a></p>
-            <p class="m-0 px-2">-</p>
-            <p class="m-0">Đăng Nhập</p>
-        </div>
-    </div>
-</div>
-<!-- Page Header End -->
-
-<!-- Login Form Start -->
-<div class="container-fluid pt-3 pb-5">
-    <div class="row justify-content-center px-xl-5">
-        <div class="col-lg-5 col-md-8">
-            <div class="card border-0 shadow-sm" style="border-radius: 10px;">
-                <div class="card-header bg-primary text-white text-center py-3">
-                    <h4 class="text-white m-0 font-weight-bold">Đăng Nhập EShopper</h4>
+<?php
+require_once __DIR__ . '/../config/config.php';
+$flashSuccess = getFlash('success');
+$flashError = getFlash('error');
+?>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title>Đăng Nhập - EShopper</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="<?= BASE_URL ?>/img/favicon.ico"/>
+    <!-- Bootstrap & FontAwesome -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css">
+    <!-- Custom CSS cho tài khoản chuẩn ASP.NET -->
+    <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/css-tk/util-tk.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/css-tk/main-tk.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-form-title" style="background-image: url('<?= BASE_URL ?>/css-tk/bg-01.jpg');">
+                    <span class="login100-form-title-1">
+                        ĐĂNG NHẬP
+                    </span>
                 </div>
-                <div class="card-body p-4">
-                    <form action="<?= BASE_URL ?>/index.php?controller=DangNhap&action=xuLyDangNhap" method="POST">
-                        <div class="form-group mb-3">
-                            <label class="font-weight-bold">Tên Đăng Nhập</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                </div>
-                                <input type="text" name="username" class="form-control" placeholder="Nhập tên đăng nhập..." required autofocus>
-                            </div>
-                        </div>
 
-                        <div class="form-group mb-4">
-                            <label class="font-weight-bold">Mật Khẩu</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                                </div>
-                                <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu..." required>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-block py-2 font-weight-bold shadow-sm">
-                            <i class="fa fa-sign-in-alt mr-2"></i>Đăng Nhập
-                        </button>
-                    </form>
-
-                    <div class="text-center mt-4">
-                        <p class="mb-0 text-muted">Chưa có tài khoản? <a href="<?= BASE_URL ?>/index.php?controller=DangKy" class="text-primary font-weight-bold">Đăng ký ngay</a></p>
-                        <small class="text-muted d-block mt-2">(Tài khoản Admin mặc định: <strong>Admin</strong> / <strong>1</strong>)</small>
+                <form class="login100-form validate-form" action="<?= BASE_URL ?>/index.php?controller=DangNhap&action=xuLyDangNhap" method="POST">
+                    <div class="wrap-input100 validate-input m-b-26">
+                        <span class="label-input100">Tài khoản</span>
+                        <input class="input100" type="text" name="username" placeholder="Nhập tên đăng nhập" required autofocus>
+                        <span class="focus-input100"></span>
                     </div>
-                </div>
+
+                    <div class="wrap-input100 validate-input m-b-18">
+                        <span class="label-input100">Mật khẩu</span>
+                        <input class="input100" type="password" name="password" placeholder="Nhập mật khẩu" required>
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="flex-sb-m w-full p-b-30">
+                        <div class="contact100-form-checkbox">
+                            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                            <label class="label-checkbox100" for="ckb1">
+                                Ghi nhớ đăng nhập
+                            </label>
+                        </div>
+
+                        <div>
+                            <a href="<?= BASE_URL ?>/index.php?controller=TrangChu" class="txt1 text-primary">
+                                <i class="fa fa-home mr-1"></i>Trang Chủ
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn">
+                            Đăng Nhập
+                        </button>
+                    </div>
+
+                    <div class="w-full text-center p-t-35">
+                        <span class="txt1">
+                            Chưa có tài khoản?
+                        </span>
+                        <a href="<?= BASE_URL ?>/index.php?controller=DangKy" class="txt1 text-danger font-weight-bold ml-1">
+                            Đăng ký ngay
+                        </a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
-<!-- Login Form End -->
 
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+    <?php if ($flashSuccess): ?>
+        <script>
+            Swal.fire({
+                title: 'Thành Công!',
+                text: '<?= addslashes($flashSuccess) ?>',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        </script>
+    <?php endif; ?>
+    <?php if ($flashError): ?>
+        <script>
+            Swal.fire({
+                title: 'Lỗi!',
+                text: '<?= addslashes($flashError) ?>',
+                icon: 'error',
+                confirmButtonText: 'Đóng'
+            });
+        </script>
+    <?php endif; ?>
+</body>
+</html>

@@ -5,16 +5,16 @@ $dsDanhMucNav = $danhMucModelNav->layTatCaDanhMuc();
 $currentUser = isset($_SESSION['User']) ? $_SESSION['User'] : null;
 $currentRole = isset($_SESSION['Quyen']) ? (string)$_SESSION['Quyen'] : null;
 ?>
-    <!-- Navbar Start -->
+    <!-- Navbar Start (Chuẩn cấu trúc Site.master) -->
     <div class="container-fluid mb-5">
         <div class="row border-top px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
-                    <h6 class="m-0 text-white">Danh mục sản phẩm</h6>
+                    <h6 class="m-0 text-white">Danh mục sản Phẩm</h6>
                     <i class="fa fa-angle-down text-dark"></i>
                 </a>
                 <nav class="collapse <?= !empty($showBanner) ? 'show' : '' ?> position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
-                    <div class="navbar-nav w-100 overflow-hidden" style="min-height: 250px">
+                    <div class="navbar-nav w-100 overflow-hidden" style="min-height: 250px; max-height: 410px;">
                         <?php if (!empty($dsDanhMucNav)): ?>
                             <?php foreach ($dsDanhMucNav as $dm): ?>
                                 <a href="<?= BASE_URL ?>/index.php?controller=SanPham&nId=<?= $dm['CategoryID'] ?>" class="nav-item nav-link">
@@ -38,7 +38,7 @@ $currentRole = isset($_SESSION['Quyen']) ? (string)$_SESSION['Quyen'] : null;
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="<?= BASE_URL ?>/index.php?controller=TrangChu" class="nav-item nav-link active">Trang Chủ</a>
+                            <a href="<?= BASE_URL ?>/index.php?controller=TrangChu" class="nav-item nav-link">Trang Chủ</a>
                             <a href="<?= BASE_URL ?>/index.php?controller=GioHang" class="nav-item nav-link">Giỏ Hàng</a>
                             <a href="<?= BASE_URL ?>/index.php?controller=LichSuDonHang" class="nav-item nav-link">Lịch sử giao dịch</a>
                             <?php if ($currentRole === "0" || $currentRole === "2"): ?>
@@ -47,40 +47,27 @@ $currentRole = isset($_SESSION['Quyen']) ? (string)$_SESSION['Quyen'] : null;
                                 </a>
                             <?php endif; ?>
                         </div>
-                        <div class="navbar-nav ml-auto py-0">
+                        <div class="navbar-nav ml-auto py-0 align-items-center">
                             <?php if ($currentUser): ?>
-                                <span class="navbar-text mr-3">Xin chào: <strong class="text-primary"><?= htmlspecialchars($currentUser) ?></strong></span>
-                                <a href="<?= BASE_URL ?>/index.php?controller=DangNhap&action=logout" class="nav-item nav-link text-danger font-weight-bold">Đăng xuất</a>
+                                <span class="nav-item text-primary font-weight-bold mr-2"><?= htmlspecialchars($currentUser) ?></span>
+                                <a href="<?= BASE_URL ?>/index.php?controller=DangNhap&action=logout" class="nav-item nav-link text-danger" style="margin-left: 20px;">Đăng xuất</a>
                             <?php else: ?>
                                 <a href="<?= BASE_URL ?>/index.php?controller=DangNhap" class="nav-item nav-link">Đăng Nhập</a>
-                                <a href="<?= BASE_URL ?>/index.php?controller=DangKy" class="nav-item nav-link">Đăng Ký</a>
+                                <a href="<?= BASE_URL ?>/index.php?controller=DangKy" class="nav-item nav-link">Đăng kí</a>
                             <?php endif; ?>
                         </div>
                     </div>
                 </nav>
 
                 <?php if (!empty($showBanner)): ?>
+                    <!-- Banner Trang Chủ Chuẩn ASP.NET (Banner/BannerTC.jpg, Banner/BannerTC_2.jpg) -->
                     <div id="header-carousel" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active" style="height: 410px;">
-                                <img class="img-fluid" src="<?= BASE_URL ?>/img/carousel-1.jpg" alt="Image" style="object-fit: cover; width:100%; height:100%;">
-                                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                    <div class="p-3" style="max-width: 700px;">
-                                        <h4 class="text-light text-uppercase font-weight-medium mb-3">Giảm 10% Cho Đơn Hàng Đầu Tiên</h4>
-                                        <h3 class="display-4 text-white font-weight-semi-bold mb-4">Linh Kiện Chính Hãng</h3>
-                                        <a href="<?= BASE_URL ?>/index.php?controller=SanPham&nId=1" class="btn btn-light py-2 px-3">Mua Ngay</a>
-                                    </div>
-                                </div>
+                                <img class="img-fluid" src="<?= BASE_URL ?>/Banner/BannerTC.jpg" alt="Banner Trang Chủ 1" style="object-fit: cover; width:100%; height:100%;">
                             </div>
                             <div class="carousel-item" style="height: 410px;">
-                                <img class="img-fluid" src="<?= BASE_URL ?>/img/carousel-2.jpg" alt="Image" style="object-fit: cover; width:100%; height:100%;">
-                                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                    <div class="p-3" style="max-width: 700px;">
-                                        <h4 class="text-light text-uppercase font-weight-medium mb-3">Hiệu Năng Vượt Trội</h4>
-                                        <h3 class="display-4 text-white font-weight-semi-bold mb-4">PC Gaming & Đồ Họa</h3>
-                                        <a href="<?= BASE_URL ?>/index.php?controller=SanPham&nId=2" class="btn btn-light py-2 px-3">Khám Phá</a>
-                                    </div>
-                                </div>
+                                <img class="img-fluid" src="<?= BASE_URL ?>/Banner/BannerTC_2.jpg" alt="Banner Trang Chủ 2" style="object-fit: cover; width:100%; height:100%;">
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">

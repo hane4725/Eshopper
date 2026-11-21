@@ -1,79 +1,124 @@
-<?php require_once __DIR__ . '/../includes/header.php'; ?>
-<?php require_once __DIR__ . '/../includes/navbar.php'; ?>
-
-<!-- Page Header Start -->
-<div class="container-fluid bg-secondary mb-5">
-    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 180px">
-        <h1 class="font-weight-semi-bold text-uppercase mb-3">Đăng Ký Thành Viên</h1>
-        <div class="d-inline-flex">
-            <p class="m-0"><a href="<?= BASE_URL ?>/index.php">Trang Chủ</a></p>
-            <p class="m-0 px-2">-</p>
-            <p class="m-0">Đăng Ký</p>
-        </div>
-    </div>
-</div>
-<!-- Page Header End -->
-
-<!-- Register Form Start -->
-<div class="container-fluid pt-3 pb-5">
-    <div class="row justify-content-center px-xl-5">
-        <div class="col-lg-6 col-md-8">
-            <div class="card border-0 shadow-sm" style="border-radius: 10px;">
-                <div class="card-header bg-primary text-white text-center py-3">
-                    <h4 class="text-white m-0 font-weight-bold">Tạo Tài Khoản Mới</h4>
+<?php
+require_once __DIR__ . '/../config/config.php';
+$flashSuccess = getFlash('success');
+$flashError = getFlash('error');
+?>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title>Đăng Ký Tài Khoản - EShopper</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="<?= BASE_URL ?>/img/favicon.ico"/>
+    <!-- Bootstrap & FontAwesome -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css">
+    <!-- Custom CSS cho tài khoản chuẩn ASP.NET -->
+    <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/css-tk/util-tk.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/css-tk/main-tk.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100" style="padding-top: 40px; padding-bottom: 40px;">
+            <div class="wrap-login100" style="width: 720px;">
+                <div class="login100-form-title" style="background-image: url('<?= BASE_URL ?>/css-tk/bg-01.jpg'); padding: 45px 15px;">
+                    <span class="login100-form-title-1">
+                        ĐĂNG KÝ THÀNH VIÊN
+                    </span>
                 </div>
-                <div class="card-body p-4">
-                    <form action="<?= BASE_URL ?>/index.php?controller=DangKy&action=xuLyDangKy" method="POST">
-                        <div class="form-group mb-3">
-                            <label class="font-weight-bold">Tên Đăng Nhập <span class="text-danger">*</span></label>
-                            <input type="text" name="username" class="form-control" placeholder="Tên đăng nhập viết liền không dấu" required>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-6 form-group mb-3">
-                                <label class="font-weight-bold">Mật Khẩu <span class="text-danger">*</span></label>
-                                <input type="password" name="password" class="form-control" placeholder="Mật khẩu" required>
-                            </div>
-                            <div class="col-md-6 form-group mb-3">
-                                <label class="font-weight-bold">Xác Nhận Mật Khẩu <span class="text-danger">*</span></label>
-                                <input type="password" name="rePassword" class="form-control" placeholder="Nhập lại mật khẩu" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label class="font-weight-bold">Họ Và Tên <span class="text-danger">*</span></label>
-                            <input type="text" name="hoTen" class="form-control" placeholder="Nguyễn Văn A" required>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 form-group mb-3">
-                                <label class="font-weight-bold">Số Điện Thoại <span class="text-danger">*</span></label>
-                                <input type="text" name="soDienThoai" class="form-control" placeholder="0987654321" required>
-                            </div>
-                            <div class="col-md-6 form-group mb-3">
-                                <label class="font-weight-bold">Email</label>
-                                <input type="email" name="email" class="form-control" placeholder="email@gmail.com">
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-4">
-                            <label class="font-weight-bold">Địa Chỉ Giao Hàng</label>
-                            <textarea name="diaChi" class="form-control" rows="2" placeholder="Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-block py-2 font-weight-bold shadow-sm">
-                            <i class="fa fa-user-plus mr-2"></i>Đăng Ký Tài Khoản
-                        </button>
-                    </form>
-
-                    <div class="text-center mt-4">
-                        <p class="mb-0 text-muted">Đã có tài khoản? <a href="<?= BASE_URL ?>/index.php?controller=DangNhap" class="text-primary font-weight-bold">Đăng nhập tại đây</a></p>
+                <form class="login100-form validate-form" action="<?= BASE_URL ?>/index.php?controller=DangKy&action=xuLyDangKy" method="POST" style="padding: 35px 60px 45px 160px;">
+                    <div class="wrap-input100 validate-input m-b-20">
+                        <span class="label-input100">Tài khoản *</span>
+                        <input class="input100" type="text" name="username" placeholder="Nhập tên đăng nhập" required autofocus>
+                        <span class="focus-input100"></span>
                     </div>
-                </div>
+
+                    <div class="wrap-input100 validate-input m-b-20">
+                        <span class="label-input100">Mật khẩu *</span>
+                        <input class="input100" type="password" name="password" placeholder="Nhập mật khẩu" required>
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-20">
+                        <span class="label-input100">Nhập lại MK *</span>
+                        <input class="input100" type="password" name="rePassword" placeholder="Xác nhận lại mật khẩu" required>
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-20">
+                        <span class="label-input100">Họ và tên *</span>
+                        <input class="input100" type="text" name="hoTen" placeholder="Nhập họ và tên đầy đủ" required>
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-20">
+                        <span class="label-input100">Điện thoại *</span>
+                        <input class="input100" type="text" name="soDienThoai" placeholder="Nhập số điện thoại" required>
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-20">
+                        <span class="label-input100">Email</span>
+                        <input class="input100" type="email" name="email" placeholder="Nhập email liên hệ">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-26">
+                        <span class="label-input100">Địa chỉ</span>
+                        <input class="input100" type="text" name="diaChi" placeholder="Nhập địa chỉ nhận hàng">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="flex-sb-m w-full p-b-25">
+                        <div>
+                            <a href="<?= BASE_URL ?>/index.php?controller=TrangChu" class="txt1 text-primary">
+                                <i class="fa fa-home mr-1"></i>Về Trang Chủ
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn">
+                            Đăng Ký Tài Khoản
+                        </button>
+                    </div>
+
+                    <div class="w-full text-center p-t-25">
+                        <span class="txt1">
+                            Đã có tài khoản?
+                        </span>
+                        <a href="<?= BASE_URL ?>/index.php?controller=DangNhap" class="txt1 text-primary font-weight-bold ml-1">
+                            Đăng nhập ngay
+                        </a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
-<!-- Register Form End -->
 
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+    <?php if ($flashSuccess): ?>
+        <script>
+            Swal.fire({
+                title: 'Thành Công!',
+                text: '<?= addslashes($flashSuccess) ?>',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        </script>
+    <?php endif; ?>
+    <?php if ($flashError): ?>
+        <script>
+            Swal.fire({
+                title: 'Lỗi!',
+                text: '<?= addslashes($flashError) ?>',
+                icon: 'error',
+                confirmButtonText: 'Đóng'
+            });
+        </script>
+    <?php endif; ?>
+</body>
+</html>

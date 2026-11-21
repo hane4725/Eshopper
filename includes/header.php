@@ -4,11 +4,14 @@ $currentUser = isset($_SESSION['User']) ? $_SESSION['User'] : null;
 $currentRole = isset($_SESSION['Quyen']) ? (string)$_SESSION['Quyen'] : null;
 ?>
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title><?= isset($pageTitle) ? htmlspecialchars($pageTitle) . ' - EShopper' : 'EShopper - Cửa Hàng Máy Tính & Linh Kiện' ?></title>
+    <title><?= isset($pageTitle) ? htmlspecialchars($pageTitle) . ' - EShopper' : 'EShopper' ?></title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
     <link href="<?= BASE_URL ?>/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
@@ -28,12 +31,12 @@ $currentRole = isset($_SESSION['Quyen']) ? (string)$_SESSION['Quyen'] : null;
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <!-- Topbar Start -->
+    <!-- Topbar Start (Chuẩn giao diện Site.master) -->
     <div class="container-fluid">
         <div class="row bg-secondary py-2 px-xl-5">
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="d-inline-flex align-items-center">
-                    <span class="text-dark">Liên hệ để nhận hỗ trợ qua</span>
+                    <a class="text-dark" href="#">Liên hệ để nhận hỗ trợ qua</a>
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
@@ -56,7 +59,7 @@ $currentRole = isset($_SESSION['Quyen']) ? (string)$_SESSION['Quyen'] : null;
                 <form action="<?= BASE_URL ?>/index.php" method="GET">
                     <input type="hidden" name="controller" value="TimKiem">
                     <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Tìm kiếm sản phẩm..." value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>" required>
+                        <input type="text" name="q" class="form-control" placeholder="Tìm kiếm sản phẩm..." value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>">
                         <div class="input-group-append">
                             <button type="submit" class="input-group-text bg-transparent text-primary">
                                 <i class="fa fa-search"></i>
@@ -64,12 +67,6 @@ $currentRole = isset($_SESSION['Quyen']) ? (string)$_SESSION['Quyen'] : null;
                         </div>
                     </div>
                 </form>
-            </div>
-            <div class="col-lg-3 col-6 text-right">
-                <a href="<?= BASE_URL ?>/index.php?controller=GioHang" class="btn border">
-                    <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge badge-primary text-white ml-1">Giỏ Hàng</span>
-                </a>
             </div>
         </div>
     </div>
