@@ -25,14 +25,10 @@
         </div>
 
         <div class="col-md-6 form-group">
-            <label class="font-weight-bold">Danh Mục Sản Phẩm <span class="text-danger">*</span></label>
-            <select name="idDanhMuc" id="drlDanhMuc" class="form-control" required onchange="handleCategoryChange()">
-                <?php foreach ($dsDanhMuc as $dm): ?>
-                    <option value="<?= $dm['CategoryID'] ?>" <?= ($dm['CategoryID'] == $sp['CategoryID']) ? 'selected' : '' ?>>
-                        <?= htmlspecialchars($dm['TenDanhMuc']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
+            <label class="font-weight-bold">Danh Mục Sản Phẩm</label>
+            <input type="text" class="form-control bg-light" value="<?= htmlspecialchars($sp['TenDanhMuc'] ?? '') ?>" readonly>
+            <input type="hidden" name="idDanhMuc" id="drlDanhMuc" value="<?= $sp['CategoryID'] ?>">
+            <small class="text-muted">Danh mục sản phẩm cố định, không thể thay đổi.</small>
         </div>
 
         <div class="col-md-6 form-group">

@@ -2,27 +2,29 @@
 <?php require_once __DIR__ . '/../includes/navbar.php'; ?>
 
 <!-- Category Header & Banner (Chuẩn nguyên bản ASP.NET TrangSanPham.aspx) -->
-<div class="container-fluid px-xl-5 pt-3">
-    <!-- Breadcrumb: Trang chủ > Tên Danh Mục -->
-    <div class="mb-2">
-        <small class="text-muted font-weight-medium">
-            <a href="<?= BASE_URL ?>/index.php" class="text-secondary">Trang chủ</a> 
-            <i class="fa fa-angle-right mx-1 text-muted"></i> 
-            <span class="text-secondary"><?= htmlspecialchars($danhMucHienTai['TenDanhMuc'] ?? 'Sản Phẩm') ?></span>
-        </small>
-    </div>
+<div class="container-fluid pt-2">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <!-- Breadcrumb: Trang Chủ - Tên Danh Mục -->
+            <div class="d-inline-flex mb-2">
+                <p class="m-0"><a href="<?= BASE_URL ?>/index.php">Trang Chủ</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0"><?= htmlspecialchars($danhMucHienTai['TenDanhMuc'] ?? 'Sản Phẩm') ?></p>
+            </div>
 
-    <!-- Category Banner: Hiển thị đúng ảnh quảng cáo danh mục (AnhDM) -->
-    <?php if (!empty($danhMucHienTai['AnhDM'])): ?>
-        <div class="mb-4 shadow-sm" style="border-radius: 4px; overflow: hidden;">
-            <img class="img-fluid w-100" src="<?= BASE_URL . '/' . htmlspecialchars($danhMucHienTai['AnhDM']) ?>" alt="<?= htmlspecialchars($danhMucHienTai['TenDanhMuc']) ?>" style="display: block; width: 100%;">
+            <!-- Category Banner: Hiển thị đúng ảnh quảng cáo danh mục (AnhDM) -->
+            <?php if (!empty($danhMucHienTai['AnhDM'])): ?>
+                <div class="mb-4 shadow-sm" style="border-radius: 4px; overflow: hidden;">
+                    <img class="img-fluid w-100" src="<?= BASE_URL . '/' . htmlspecialchars($danhMucHienTai['AnhDM']) ?>" alt="<?= htmlspecialchars($danhMucHienTai['TenDanhMuc']) ?>" style="display: block; width: 100%;">
+                </div>
+            <?php endif; ?>
         </div>
-    <?php endif; ?>
+    </div>
 </div>
 
 <!-- Shop Start -->
-<div class="container-fluid px-xl-5">
-    <div class="row">
+<div class="container-fluid">
+    <div class="row px-xl-5">
         <!-- Shop Sidebar Start (Bộ Lọc Chuẩn ASP.NET) -->
         <div class="col-lg-3 col-md-12">
             <form action="<?= BASE_URL ?>/index.php" method="GET">
@@ -98,7 +100,7 @@
                 <?php endif; ?>
 
                 <div class="mb-4">
-                    <a href="<?= BASE_URL ?>/index.php?controller=SanPham&nId=<?= $nId ?>" class="btn btn-sm btn-outline-secondary btn-block">
+                    <a href="<?= BASE_URL ?>/index.php?controller=SanPham&nId=<?= $nId ?>" class="btn btn-sm btn-outline-dark btn-block">
                         <i class="fa fa-sync-alt mr-1"></i>Xóa bộ lọc
                     </a>
                 </div>

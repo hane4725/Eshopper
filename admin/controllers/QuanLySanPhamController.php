@@ -140,21 +140,20 @@ class QuanLySanPhamController {
             $ten = trim($_POST['tenSanPham'] ?? '');
             $dongia = (float)($_POST['donGia'] ?? 0);
             $slton = (int)($_POST['soLuongTon'] ?? 0);
-            $newIdDm = (int)($_POST['idDanhMuc'] ?? 0);
             $idhangsx = (int)($_POST['idHang'] ?? 0);
             $mota = $_POST['moTa'] ?? '';
             $tskt = $_POST['thongSoKyThuat'] ?? '';
 
             if ($idhangsx == -1) $idhangsx = 0;
 
+            // Giữ nguyên danh mục của sản phẩm (không cho phép đổi danh mục)
+            $catId = (int)$sp['CategoryID'];
             $oldDbPath = $sp['HinhAnh'];
-            $oldIdDm = (int)$sp['CategoryID'];
             $anhToSave = $oldDbPath;
 
-            $dmInfo = $dmModel->layChiTietDanhMuc($newIdDm);
-            $infoNew = $this->layThongTinThuMuc($newIdDm, $dmInfo['TenDanhMuc'] ?? '');
+            $infoFolder = $this->layThongTinThuMuc($catId, $sp['TenDanhMuc'] ?? '');
 
-            // TH1: Người dùng tải ảnh MỚI
+            // Nếu người dùng tải ảnh MỚI
             if (isset($_FILES['anh']) && $_FILES['anh']['error'] === UPLOAD_ERR_OK) {
                 // Xóa ảnh và folder cũ nếu có
                 if (!empty($oldDbPath) && file_exists(ROOT_PATH . '/' . $oldDbPath)) {
@@ -167,41 +166,22 @@ class QuanLySanPhamController {
                 $fileName = basename($_FILES['anh']['name']);
                 $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
-                $subFolder = $infoNew['prefix'] . '_' . $id . '/';
-                $physicalDir = ROOT_PATH . '/' . $infoNew['base'] . $subFolder;
+                $subFolder = $infoFolder['prefix'] . '_' . $id . '/';
+                $physicalDir = ROOT_PATH . '/' . $infoFolder['base'] . $subFolder;
                 if (!is_dir($physicalDir)) mkdir($physicalDir, 0777, true);
 
                 $strdt = date('dmYHis');
-                $newFileName = $infoNew['prefix'] . '_' . $id . '_' . $strdt . '.' . $ext;
+                $newFileName = $infoFolder['prefix'] . '_' . $id . '_' . $strdt . '.' . $ext;
                 $destFile = $physicalDir . $newFileName;
 
                 if (move_uploaded_file($fileTmp, $destFile)) {
-                    $anhToSave = $infoNew['base'] . $subFolder . $newFileName;
-                }
-            }
-            // TH2: Giữ ảnh cũ nhưng ĐỔI DANH MỤC (di chuyển thư mục vật lý như code C#)
-            elseif ($oldIdDm !== $newIdDm && !empty($oldDbPath)) {
-                $oldPhysical = ROOT_PATH . '/' . $oldDbPath;
-                if (file_exists($oldPhysical)) {
-                    $subFolder = $infoNew['prefix'] . '_' . $id . '/';
-                    $newPhysicalDir = ROOT_PATH . '/' . $infoNew['base'] . $subFolder;
-                    if (!is_dir($newPhysicalDir)) mkdir($newPhysicalDir, 0777, true);
-
-                    $ext = pathinfo($oldPhysical, PATHINFO_EXTENSION);
-                    $newFileName = $infoNew['prefix'] . '_' . $id . '_' . date('dmY') . '_moved.' . $ext;
-                    $newPhysicalFile = $newPhysicalDir . $newFileName;
-
-                    if (rename($oldPhysical, $newPhysicalFile)) {
-                        $anhToSave = $infoNew['base'] . $subFolder . $newFileName;
-                        $oldDir = dirname($oldPhysical);
-                        if (is_dir($oldDir) && count(scandir($oldDir)) == 2) rmdir($oldDir);
-                    }
+                    $anhToSave = $infoFolder['base'] . $subFolder . $newFileName;
                 }
             }
 
-            $spModel->suaSanPham($id, $ten, $dongia, $anhToSave, $mota, $tskt, $slton, $idhangsx, $newIdDm);
+            $spModel->suaSanPham($id, $ten, $dongia, $anhToSave, $mota, $tskt, $slton, $idhangsx, $catId);
             setFlash('success', 'Cập nhật thông tin sản phẩm thành công!');
-            redirect(BASE_URL . '/admin/index.php?controller=QuanLySanPham&id_dm=' . $newIdDm);
+            redirect(BASE_URL . '/admin/index.php?controller=QuanLySanPham&id_dm=' . $catId);
         }
 
         $pageTitle = "Chỉnh Sửa Hàng Hóa #" . $id;

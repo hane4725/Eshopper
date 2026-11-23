@@ -6,7 +6,7 @@ $currentUser = isset($_SESSION['User']) ? $_SESSION['User'] : null;
 $currentRole = isset($_SESSION['Quyen']) ? (string)$_SESSION['Quyen'] : null;
 ?>
     <!-- Navbar Start (Chuẩn cấu trúc Site.master) -->
-    <div class="container-fluid mb-5">
+    <div class="container-fluid <?= !empty($showBanner) ? 'mb-5' : 'mb-0' ?>">
         <div class="row border-top px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
